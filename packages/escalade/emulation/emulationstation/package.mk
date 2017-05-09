@@ -17,18 +17,26 @@
 ################################################################################
 
 PKG_NAME="emulationstation"
-PKG_VERSION="76c1538"
+PKG_VERSION="6c7b2c8"
 PKG_ARCH="any"
 PKG_LICENSE="GPL"
-PKG_SITE="https://github.com/Herdinger/EmulationStation.git"
-PKG_URL="https://github.com/Herdinger/EmulationStation/archive/$PKG_VERSION.tar.gz"
+PKG_SITE="https://github.com/RetroPie/EmulationStation"
+PKG_URL="custom"
 PKG_SOURCE_DIR="EmulationStation-$PKG_VERSION*"
-PKG_DEPENDS_TARGET="toolchain SDL2 boost freetype curl cmake:host freeimage eigen emulationstation-theme-simple-dark"
+PKG_DEPENDS_TARGET="toolchain SDL2 boost freetype curl cmake:host freeimage eigen emulationstation-theme-simple-dark libvlc"
 PKG_SECTION="emulation"
 PKG_SHORTDESC="Emulationstation emulator frontend"
 
 PKG_IS_ADDON="no"
 PKG_AUTORECONF="no"
+
+unpack() {
+  git clone --recursive https://github.com/RetroPie/EmulationStation $PKG_BUILD
+  cd $PKG_BUILD
+  git reset --hard $PKG_VERSION
+  rm -rf .git
+  cd $ROOT
+}
 
 pre_configure_target() {
   strip_gold
